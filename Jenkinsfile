@@ -1,4 +1,3 @@
-pipeline {
   node {
     stage 'Build'
     task 'Compile'
@@ -26,4 +25,3 @@ pipeline {
     echo 'Deploy to production'
     sleep 1
   }
-}
