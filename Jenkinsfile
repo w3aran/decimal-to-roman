@@ -1,6 +1,36 @@
 pipeline {
   agent any
   stages {
+    stage('Initialize') {
+      steps {
+        nvm(version: 'v6.11.5', nvmNodeJsOrgMirror: 'https://nodejs.org/dist', nvmInstallURL: 'https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh') {
+          sh '''
+          node --version
+          npm --version
+          '''
+        }
+        
+      }
+    }
+    stage('Install Dependency') {
+      steps {
+        nvm(version: 'v6.11.5') {
+          sh '''
+          npm install
+          '''
+        }
+        
+      }
+    }
+    stage('Test') {
+      steps {
+        nvm(version: 'v6.11.5') {
+          sh '''
+          npm test
+          '''
+        }
+      }
+    }
     stage('hello') {
       parallel {
         stage('hello') {
@@ -13,14 +43,7 @@ pipeline {
             sh 'echo "heloo 2"'
           }
         }
-        stage('Initialize') {
-         steps {
-           nvm(version: '6.11.5', nvmIoJsOrgMirror: 'https://nodejs.org/dist', nvmNodeJsOrgMirror: 'https://iojs.org/dist', nvmInstallURL: 'https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh') {
-             sh 'node --version'
-           }
-           
-         }
-       }
+        
       }
     }
   }
