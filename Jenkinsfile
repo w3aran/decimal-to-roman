@@ -14,7 +14,7 @@ pipeline {
     }
     stage('Install Dependency') {
       steps {
-        nvm(version: 'v6.11.5') {
+        nvm(version: 'v6.11.5', nvmIoJsOrgMirror: 'https://nodejs.org/dist', nvmNodeJsOrgMirror: 'https://nodejs.org/dist', nvmInstallURL: 'https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh') {
           sh '''
           npm install
           '''
@@ -24,7 +24,7 @@ pipeline {
     }
     stage('Test') {
       steps {
-        nvm(version: 'v6.11.5') {
+        nvm(version: 'v6.11.5', nvmIoJsOrgMirror: 'https://nodejs.org/dist', nvmNodeJsOrgMirror: 'https://nodejs.org/dist', nvmInstallURL: 'https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh') {
           sh '''
           npm test
           '''
