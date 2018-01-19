@@ -15,5 +15,10 @@ npm --version'''
         
       }
     }
+    stage('Install Dependency') {
+      steps {
+        sh 'npm install'
+      }
+    }
   }
 }
