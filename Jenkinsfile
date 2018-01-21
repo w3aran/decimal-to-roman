@@ -69,11 +69,17 @@ pipeline {
             }
         }
         stage('Trigger to Deploy Staging environment Build') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'Triggering to Deploy Staging environment manually' 
             }
         }
         stage('Trigger to Deploy Production environment Build') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'Triggering to Deploy Production environment manually' 
             }
