@@ -15,7 +15,7 @@ pipeline {
                 '''
             }
         }
-        stage('Install NPM Dependencies') {
+        stage('NPM Dependencies') {
             steps {
                 sh 'npm install'
             }
@@ -25,7 +25,12 @@ pipeline {
                 sh 'npm run lint'
             }
         }
-        stage('Tag Version') {
+        stage('Unit Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        stage('Tag with Version') {
             when {
                 branch 'master'
             }
