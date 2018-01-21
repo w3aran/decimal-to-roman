@@ -35,20 +35,47 @@ pipeline {
         }
         stage('Build Artifact') {
             when {
-                branch 'master'
+                anyOf {
+                    branch 'master'
+                    environment name: 'NODE_APP_ENV', value: 'development'
+                }
             }
             steps {
                 sh 'npm run artifact'
             }
         }
-        stage('Publish to Artifactory') { 
+        stage('Publish to Artifactory') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'publish to artifactory' 
             }
         }
-        stage('Deploy to QA environment') { 
+        stage('Deploy to Dev environment') {
+            when {
+                environment name: 'NODE_APP_ENV', value: 'development'
+            }
+            steps {
+                echo 'Deploy to QA server' 
+            }
+        }
+        stage('Deploy to QA environment') {
+            when {
+                branch 'master'
+            }
             steps {
                 echo 'deploying to qa servers' 
+            }
+        }
+        stage('Trigger to Deploy Staging environment Build') {
+            steps {
+                echo 'Triggering to Deploy Staging environment manually' 
+            }
+        }
+        stage('Trigger to Deploy Production environment Build') {
+            steps {
+                echo 'Triggering to Deploy Production environment manually' 
             }
         }
     }
